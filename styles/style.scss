@@ -1,0 +1,588 @@
+// =================
+// Table Of Contents
+// =================
+// 1. Variables
+// 2. Fonts
+// 3. Reset
+// 4. Body
+// 5. Header
+//     5.1. Score
+// 6. Main Game
+//     6.1. Scissors, Paper, Rock Styles
+//     6.2. Hover Animations
+//     6.3. Click Animations
+// 7. Win, Lose, Tie
+// 8. Rules Functionality
+//     8.1. Rules Screen
+//     8.2. Rules Modal
+//     8.3. Close Rules Button Hover
+// 9. Media Queries
+//     9.1 Media Query 2
+//          Desktop Rules Modal
+//     9.2 Media Query 3
+
+
+// 1. Variables
+$dark-text: hsl(229, 25%, 31%);
+$score-text: hsl(229, 64%, 46%);
+$header-outline: hsl(217, 16%, 45%);
+
+$scissors-border: hsl(40, 84%, 53%);
+$scissors-glow: hsl(44, 76%, 68%);
+$paper-border: hsl(230, 89%, 65%);
+$paper-glow: hsl(209, 85%, 74%);
+$rock-border: hsl(349, 70%, 56%);
+$rock-glow: hsl(337, 70%, 64%);
+
+// 2. Fonts
+@font-face {
+    font-family: 'kanit-regular';
+    src: url('../fonts/Kanit/Kanit-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'kanit-bold';
+    src: url('../fonts/Kanit/Kanit-Bold.ttf');
+}
+
+// 3. Reset
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    font-family: 'kanit-regular';
+}
+
+// 4. Body
+body {
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    padding: 14px 6px;
+
+    background-image:linear-gradient(hsl(213, 47%, 23%), hsl(237, 49%, 15%));
+}
+
+// 5. Header
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+
+    margin-bottom: 104px;
+    padding: 16px;
+
+    border: 5px solid $header-outline;
+    border-radius: 12px;
+
+    img {
+        height: 100%;
+    }
+
+    // 5.1. Score
+    div {
+        width: 100px;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        padding: 8px;
+
+        background-color: hsl(0, 0%, 100%);
+        border-radius: 6px;
+
+        text-align: center;
+
+        p {
+            margin-bottom: 30px;
+            color: $score-text;
+        }
+
+        strong {
+            font-family: 'kanit-bold';
+            font-size: 3rem;
+            color: $dark-text;
+            line-height: 0;
+        }
+    }
+}
+
+// 6. Main Game
+main {
+    position: relative;
+    width: 287px;
+
+    // 6.1. Scissors, Paper, Rock Styles
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+
+        width: 80px;
+        height: 80px;
+
+        padding: 44px;
+
+        background-color: hsl(0, 0%, 100%);
+        border-radius: 100%;
+    }
+
+    .hidden {
+        transition: 0.2s;
+        opacity: 0;
+    }
+
+    .triangle {
+        width: 287px;
+    }
+
+    .scissors {
+        top: -47px;
+        left: -35px;
+    }
+    .scissors,
+    .computer-scissors {
+        border: 10px solid hsl(40, 84%, 53%);
+        box-shadow: 0 5px hsl(29, 45%, 46%), 0 5px hsl(39, 27%, 80%) inset;
+    }
+
+    .paper {
+        top: -47px;
+        left: 216px;
+    }
+    .paper,
+    .computer-paper {
+        border: 10px solid hsl(230, 89%, 65%);
+        box-shadow: 0 5px hsl(229, 44%, 46%), 0 5px hsl(223, 27%, 80%) inset;
+    }
+
+    .rock {
+        top: 180px;
+        left: 86px;
+    }
+    .rock,
+    .computer-rock {
+        border: 10px solid hsl(349, 70%, 56%);
+        box-shadow: 0 5px hsl(345, 52%, 37%), 0 5px hsl(351, 27%, 80%) inset;
+    }
+
+    .computer {
+        top: -47px;
+        left: 230px;
+
+        opacity: 0;
+    }
+
+    // 6.2. Hover Animations
+    @keyframes glow {
+        0% {
+            width: 0;
+            height: 0;
+        }
+        100% {
+            width: 110%;
+            height: 110%;
+        }
+    }
+
+    .scissors:hover::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+
+        animation: 0.2s linear glow;
+
+        width: 110%;
+        height: 110%;
+
+        filter: blur(25px);
+
+        background-color: $scissors-glow; 
+        border-radius: 100%;
+    }
+
+    .paper:hover::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+
+        animation: 0.2s linear glow;
+
+        width: 110%;
+        height: 110%;
+
+        filter: blur(25px);
+
+        background-color: $paper-glow; 
+        border-radius: 100%;
+    }
+
+    .rock:hover::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+
+        animation: 0.2s linear glow;
+
+        width: 110%;
+        height: 110%;
+
+        filter: blur(25px);
+
+        background-color: $rock-glow; 
+        border-radius: 100%;
+    }
+
+    // 6.3. Click Animations
+    .scissors:focus::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+
+        width: 110%;
+        height: 110%;
+
+        filter: blur(25px);
+
+        background-color: hsl(44, 57%, 50%);
+        border-radius: 100%;
+    }
+
+    .paper:focus::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+
+        width: 110%;
+        height: 110%;
+
+        filter: blur(25px);
+
+        background-color: hsl(209, 85%, 74%); 
+        border-radius: 100%;
+    }
+
+    .rock:focus::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+
+        width: 110%;
+        height: 110%;
+
+        filter: blur(25px);
+
+        background-color: hsl(337, 70%, 64%); 
+        border-radius: 100%;
+    }
+}
+
+// 7. Win, Lose, Tie
+.win-lose {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-top: -104px;
+
+    color: hsl(0, 0%, 100%);
+    text-align: center;
+
+    h2 {
+        font-size: 3.4rem;
+    }
+
+    .play-again {
+        transition: 0.2s;
+
+        padding: 4px 32px;
+
+        text-decoration: none;
+        font-size: 2rem;
+
+        color: $dark-text;
+        background-color: hsl(0, 0%, 100%);
+        border-radius: 8px;
+    }
+
+    .play-again:hover {
+        transition: 0.2s;
+
+        color: white;
+        background-color: rgba(255, 255, 255, 0);
+        border: 3px solid white;
+    }
+
+    .win {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .lose,
+    .tie {
+        position: relative;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .lose { top: -129px; }
+
+    .tie { top: -258px; }
+}
+
+// 8. Rules Functionality
+.rules-btn {
+    position: absolute;
+    bottom: 64px;
+    left: calc(50% - 62.65px);
+
+    a {
+        transition: 0.5s;
+
+        padding: 4px 24px;
+
+        color: hsl(0, 0%, 100%);
+        text-decoration: none;
+        letter-spacing: 5px;
+
+        border: 3px solid hsl(0, 0%, 100%);
+        border-radius: 10px;
+    }
+}
+
+.rules-btn:hover {
+    a {
+        transition: 0.5s;
+
+        color: $dark-text;
+        background-color: hsl(0, 0%, 100%);
+    }
+}
+
+// 8.1. Rules Screen
+.rules {
+    transition: 1s;
+
+    position: absolute;
+    top: 100vh;
+    left: 0;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    width: 100vw;
+    height: 100vh;
+    
+    background-color: hsl(0, 0%, 100%);
+
+    h2 {
+        font-size: 3rem;
+        color: $dark-text;
+    }
+}
+
+// 8.2. Rules Modal
+.rules-modal { display: none; }
+
+.rules-modal::after {
+    content: '';
+    position: absolute;
+    top: -25px;
+    z-index: -2;
+    
+    width: 110%;
+    height: 110%;
+
+    filter: blur(30px);
+    opacity: 0.5;
+
+    border: 10px solid rgb(54, 152, 233);
+    border-radius: inherit;
+}
+
+// 8.3. Close Rules Button Hover
+.close-rules,
+.close-modal {
+    transition: 0.2s;
+}
+.close-rules:hover,
+.close-modal:hover { 
+    transition: 0.2s;
+
+    cursor: pointer;
+    scale: 1.5;
+}
+
+// 9. Media Queries
+@media screen and (min-width: 600px) {
+    body { padding: 14px 50px; }
+
+    main {
+        width: 400px;
+
+        div {
+            width: 125px;
+            height: 125px;
+
+            img {
+                height: 70px;
+            }
+        }
+
+        .triangle { width: 400px; }
+
+        .scissors {
+            top: -53px;
+            left: -38px;
+        }
+
+        .paper,
+        .computer {
+            top: -53px;
+            left: 321px;
+        }
+
+        .rock {
+            top: 247px;
+            left: 142px;
+        }
+    }
+
+    .rules {
+        img { width: 432px; }
+
+        .close-rules { width: 32px; }
+    }
+
+    .rules-btn {
+        left: calc(50% - 75.3px);
+
+        a {
+            padding: 8px 32px;
+            font-size: 1.2rem;
+        }
+    } 
+}
+
+// 9.1. Media Query 2
+@media screen and (min-width: 930px) {
+    header { width: 856px; }
+
+    main {
+        div {
+            width: 150px;
+            height: 150px;
+
+            img { transform: scale(1.4); }
+        }
+
+        .scissors {
+            top: -66px;
+            left: -51px;
+        }
+
+        .paper,
+        .computer {
+            top: -66px;
+            left: 300px;
+        }
+
+        .rock {
+            top: 235px;
+            left: 125px;
+        }
+    } 
+
+    .rules {
+        h2 { font-size: 3.5rem; }
+
+        img { width: 432px; }
+
+        .close-rules { width: 40px; }
+    } 
+}
+
+// 9.2. Media Query 3
+@media screen and (min-width: 1270px) {
+   .dim-page {
+    transition: 0.2s;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    width: 100vw;
+    height: 100vh;
+
+    opacity: 0;
+    background-color: rgba(#000, 0.3);
+   }
+
+   // Desktop Rules Modal
+   .rules-modal {
+        transition: 0.2s;
+
+        position: absolute;
+        top: 120vh;
+        left: 50%;
+        transform: translate(-50%, 0);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 24px;
+
+        width: 500px;
+        height: 500px;
+
+        background-color: white;
+        border-radius: 15px;
+
+        div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            width: 100%;
+
+            margin-bottom: 24px;
+
+            h2 { font-size: 2.5rem; }
+
+            img { width: 30px; }
+        }
+
+        img { width: 90%; }
+    }
+
+   .rules-btn-section {
+    position: relative;
+    bottom: 20px;
+
+    display: flex;
+    justify-content: end;
+
+    width: 80%;
+
+    .rules-btn { position: initial; }
+   } 
+}

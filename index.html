@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="./script.js" defer></script>
+
+  <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
+  <title>Rock Paper Scissors</title>
+</head>
+<body onload="getScore()">
+  <header>
+    <img src="./images/logo.svg" alt="Logo">
+
+    <div>
+      <p>SCORE</p>
+      <strong class="score">0</strong>
+    </div>
+  </header>
+
+  <main>
+    <img class="triangle" src="./images/bg-triangle.svg">
+
+    <!-- Computer's -->
+    <div class="computer-scissors computer"><img src="./images/icon-scissors.svg"></div>
+    <div class="computer-paper computer"><img src="./images/icon-paper.svg"></div>
+    <div class="computer-rock computer"><img src="./images/icon-rock.svg"></div>
+
+    <!-- Player's -->
+    <div class="scissors" tabindex="-1"><img src="./images/icon-scissors.svg" alt="Scissors"></div>
+    <div class="paper" tabindex="-1"><img src="./images/icon-paper.svg" alt="Paper"></div>
+    <div class="rock" tabindex="-1"><img src="./images/icon-rock.svg" alt="Rock"></div>
+  </main>
+
+  <div class="win-lose">
+    <div class="win">
+      <h2>YOU WIN</h2>
+      <a class="play-again" href="index.html">PLAY AGAIN</a>
+    </div> 
+
+    <div class="lose">
+      <h2>YOU LOSE</h2>
+      <a class="play-again" href="index.html">PLAY AGAIN</a>
+    </div>
+
+    <div class="tie">
+      <h2>TIED</h2>
+      <a class="play-again" href="index.html">PLAY AGAIN</a>
+    </div>
+  </div>
+
+  <section class="rules">
+    <h2>RULES</h2>
+    <img src="./images/image-rules.svg" alt="Rules">
+    <img class="close-rules" src="./images/icon-close.svg" alt="Close rules">
+  </section>
+
+  <div class="dim-page"></div>
+  <section class="rules-modal">
+    <div>
+      <h2>RULES</h2>
+      <img class="close-modal" src="./images/icon-close.svg" alt="Close rules">
+    </div>
+    <img src="./images/image-rules.svg" alt="Rules">
+  </section>
+
+  <section class="rules-btn-section">
+    <div class="rules-btn">
+      <a href="#">RULES</a>
+    </div>
+  </section>
+</body>
+</html>
